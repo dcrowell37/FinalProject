@@ -39,11 +39,6 @@ import java.util.stream.Stream;
 import com.pt.jeep.entity.Jeep;
 import org.springframework.http.HttpMethod;
 
-
-@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
-@Sql(scripts = {"classpath:flyway/migrations/V1.0__Jeep_Schema.sql",
-    "classpath:flyway/migrations/V1.1__Jeep_Data.sql"}, config = @SqlConfig(encoding = "utf-8"))
 class FetchJeepTest extends FetchJeepTestSupport {
   @Nested
   @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -59,7 +54,7 @@ class FetchJeepTest extends FetchJeepTestSupport {
       JeepModel model = JeepModel.WRANGLER;
       String trim = "Sport";
       String uri =
-          String.format("%s?model=%s&trim=%s", getBaseUri(), model, trim);
+          String.format("%s?model=%s&trim=%s", getBaseUriForJeeps(), model, trim);
       System.out.println(uri);
 
       // When: a connection is made to the URI
@@ -85,7 +80,7 @@ class FetchJeepTest extends FetchJeepTestSupport {
       JeepModel model = JeepModel.WRANGLER;
       String trim = "Unknown Value ";
       String uri =
-          String.format("%s?model=%s&trim=%s", getBaseUri(), model, trim);
+          String.format("%s?model=%s&trim=%s", getBaseUriForJeeps(), model, trim);
       System.out.println(uri);
 
       // When: a connection is made to the URI
@@ -108,7 +103,7 @@ class FetchJeepTest extends FetchJeepTestSupport {
         String model, String trim, String reason) {
       // Given: A valid model, trim and URI
       String uri =
-          String.format("%s?model=%s&trim=%s", getBaseUri(), model, trim);
+          String.format("%s?model=%s&trim=%s", getBaseUriForJeeps(), model, trim);
       System.out.println(uri);
 
       // When: a connection is made to the URI
@@ -156,7 +151,7 @@ class FetchJeepTest extends FetchJeepTestSupport {
       // Given: A valid model, trim and URI
       JeepModel model = JeepModel.WRANGLER;
       String trim = "Invalid";
-      String uri = String.format("%s?model=%s&trim=%s", getBaseUri(), model, trim);
+      String uri = String.format("%s?model=%s&trim=%s", getBaseUriForJeeps(), model, trim);
     
       doThrow(new RuntimeException("Ouch!")).when(jeepSalesService).fetchJeeps(model, trim);
     

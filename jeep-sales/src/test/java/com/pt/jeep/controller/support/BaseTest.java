@@ -12,9 +12,19 @@ public class BaseTest {
   @Autowired
   @Getter
   private TestRestTemplate restTemplate;
-
-  protected String getBaseUri() {
+/**
+ * 
+ * @return
+ */
+  protected String getBaseUriForJeeps() {
     return String.format("http://localhost:%d/jeeps", serverPort);
+  }
+  /**
+   * 
+   * @return
+   */
+  protected String getBaseUriForOrders() {
+    return String.format("http://localhost:%d/orders", serverPort);
   }
 
 }
